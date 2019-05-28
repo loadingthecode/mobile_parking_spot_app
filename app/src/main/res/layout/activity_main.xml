@@ -87,12 +87,14 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:alpha="0.25"
+        android:scaleX="1.50"
+        android:scaleY="1.73"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.828"
-        app:srcCompat="@drawable/parking_icon" />
+        app:srcCompat="@drawable/new_parking_icon" />
 
     <Button
         android:id="@+id/helpButton"
