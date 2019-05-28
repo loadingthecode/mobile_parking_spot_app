@@ -133,7 +133,7 @@
         app:layout_constraintVertical_bias="0.387" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/settingsButton"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginStart="8dp"
@@ -143,6 +143,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/settings"
+        android:onClick="goToSettings"
         android:padding="10dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
