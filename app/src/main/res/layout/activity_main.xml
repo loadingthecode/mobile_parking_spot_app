@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/mapButton"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginStart="8dp"
@@ -23,6 +23,7 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:typeface="normal"
+        android:tooltipText="Parking Lot Map"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.204"
@@ -31,7 +32,7 @@
         app:layout_constraintVertical_bias="0.211" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/trendsButton"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginStart="8dp"
@@ -43,6 +44,7 @@
         android:background="@drawable/trends"
         android:padding="10dp"
         android:textStyle="bold"
+        android:tooltipText="Trends"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.204"
@@ -51,7 +53,7 @@
         app:layout_constraintVertical_bias="0.387" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/appNameText"
         android:layout_width="218dp"
         android:layout_height="32dp"
         android:layout_marginStart="8dp"
@@ -75,7 +77,7 @@
         app:layout_constraintVertical_bias="0.062" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/watermark"
         android:layout_width="410dp"
         android:layout_height="359dp"
         android:layout_marginStart="8dp"
@@ -93,7 +95,7 @@
         app:srcCompat="@drawable/parking_icon" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/helpButton"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginStart="8dp"
@@ -105,6 +107,7 @@
         android:background="@drawable/help"
         android:padding="10dp"
         android:textStyle="bold"
+        android:tooltipText="Help"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.839"
@@ -113,7 +116,7 @@
         app:layout_constraintVertical_bias="0.387" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/bugReportButton"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginStart="8dp"
@@ -125,6 +128,7 @@
         android:background="@drawable/bug_report"
         android:padding="10dp"
         android:textStyle="bold"
+        android:tooltipText="Report a bug"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.535"
@@ -146,6 +150,7 @@
         android:onClick="goToSettings"
         android:padding="10dp"
         android:textStyle="bold"
+        android:tooltipText="Settings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.839"
@@ -154,7 +159,7 @@
         app:layout_constraintVertical_bias="0.211" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/checkInOutButton"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginStart="8dp"
@@ -166,6 +171,7 @@
         android:background="@drawable/report"
         android:padding="10dp"
         android:textStyle="bold"
+        android:tooltipText="Check in/out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.535"
