@@ -9,7 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Help"
+        <activity
+            android:name=".ParkingTrends"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".InteractiveMap"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".BugReport"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Help"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Settings"
