@@ -2,18 +2,20 @@ package com.example.test;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.ArrayList;
 
 public class ParkingTrends extends AppCompatActivity {
 
     BarChart trendsChart;
-
+    String [] dayList={"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,5 +44,14 @@ public class ParkingTrends extends AppCompatActivity {
         trendsChart.setTouchEnabled(true);
         trendsChart.setDragEnabled(true);
         trendsChart.setScaleEnabled(true);
+
+        trendsChart.setMaxVisibleValueCount(4);
+
+        // TODO: read documentation to make bars thinner
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, dayList);
+        MaterialBetterSpinner daySpinner = (MaterialBetterSpinner)findViewById(R.id.trendsDayChooser);
+        daySpinner.setAdapter(arrayAdapter);
     }
 }
