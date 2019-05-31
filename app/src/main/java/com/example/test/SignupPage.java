@@ -1,5 +1,9 @@
 package com.example.test;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.MatchResult;
+
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -19,7 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class SignupPage extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private EditText email, pass;
+    private EditText userEmail, pass;
 
 
     //@Override
@@ -27,7 +31,7 @@ public class SignupPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_page);
         mAuth = FirebaseAuth.getInstance();
-        email = (EditText)findViewById(R.id.signUpEmail);
+        userEmail = (EditText)findViewById(R.id.signUpEmail);
         pass = (EditText)findViewById(R.id.signUpPassword);
 
         ActionBar bar = getSupportActionBar();
@@ -40,30 +44,30 @@ public class SignupPage extends AppCompatActivity {
 
     private void createAccount(String email, String password) {
 
-        // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+        final String REGEX = "^[a-z0-9]+@rollins.edu$";
+
+        if (userEmail.getText().toString().matches(REGEX)) {
+
+            // [START create_user_with_email]
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
                             // Sign in success, update UI with the signed-in user's information
-
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            sendEmailVerification();
-
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-
-                            Toast.makeText(SignupPage.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(SignupPage.this, "Account created. Check your email" +
+                                                    "for verification.",
+                                            Toast.LENGTH_SHORT).show();
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    sendEmailVerification();
+                                }
                         }
-
-
-                    }
-                });
-        // [END create_user_with_email]
+                    });
+            // [END create_user_with_email]
+        } else {
+            Toast.makeText(SignupPage.this, "Please enter a valid Rollins email address.",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void sendEmailVerification() {
@@ -89,6 +93,6 @@ public class SignupPage extends AppCompatActivity {
     }
 
     public void clickForSignUp(View view) {
-        createAccount(email.getText().toString(), pass.getText().toString());
+        createAccount(userEmail.getText().toString(), pass.getText().toString());
     }
 }

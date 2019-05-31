@@ -61,16 +61,21 @@ public class Login extends AppCompatActivity {
                                 startActivity(intent);
                             }
 
+                            else {
+                                Toast.makeText(Login.this, "Please check your email and verify your account.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+
                         } else {
 
-                            Toast.makeText(Login.this, "Authentication failed.",
+                            Toast.makeText(Login.this, "Login Failed.",
                                     Toast.LENGTH_SHORT).show();
 
                         }
 
                         // [START_EXCLUDE]
                         if (!task.isSuccessful()) {
-                            Toast.makeText(Login.this, "Authentication failed.",
+                            Toast.makeText(Login.this, "Your credentials don't match any account information.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
