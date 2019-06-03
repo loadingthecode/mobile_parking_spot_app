@@ -29,7 +29,6 @@ public class Login extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
 
         bar.setTitle("Login"); // set actionbar title
-        bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
 
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
@@ -38,6 +37,8 @@ public class Login extends AppCompatActivity {
         pass = (EditText)findViewById(R.id.signInPassword);
     }
 
+    // if user clicks "CREATE ACCOUNT" button
+    // sends to SignupPage activity
     public void clickToSignup(View view) {
         Intent intent = new Intent(Login.this, SignupPage.class);
         startActivity(intent);
@@ -67,19 +68,9 @@ public class Login extends AppCompatActivity {
                             }
 
                         } else {
-
-                            Toast.makeText(Login.this, "Login Failed.",
-                                    Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        // [START_EXCLUDE]
-                        if (!task.isSuccessful()) {
                             Toast.makeText(Login.this, "Your credentials don't match any account information.",
                                     Toast.LENGTH_SHORT).show();
                         }
-
-                        // [END_EXCLUDE]
                     }
                 });
         // [END sign_in_with_email]

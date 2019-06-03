@@ -44,11 +44,15 @@ public class SignupPage extends AppCompatActivity {
 
     private void createAccount(String email, String password) {
 
+        // Allows only users with a valid Rollins email
+        // to sign up for the app
         final String REGEX = "^[a-z0-9]+@rollins.edu$";
 
         if (userEmail.getText().toString().matches(REGEX)) {
 
             // [START create_user_with_email]
+            // actual creation of account with email and
+            // password
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -56,7 +60,7 @@ public class SignupPage extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                                 if (task.isSuccessful()) {
                                     Toast.makeText(SignupPage.this, "Account created. Check your email" +
-                                                    "for verification.",
+                                                    " for verification.",
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     sendEmailVerification();
@@ -64,6 +68,7 @@ public class SignupPage extends AppCompatActivity {
                         }
                     });
             // [END create_user_with_email]
+            // prevents unauthorized users from using app
         } else {
             Toast.makeText(SignupPage.this, "Please enter a valid Rollins email address.",
                     Toast.LENGTH_SHORT).show();

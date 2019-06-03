@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -33,10 +34,10 @@ public class ParkingTrends extends AppCompatActivity {
         BarDataSet barDataSet = new BarDataSet(barEntries, "Time of Day");
 
         ArrayList<String> theTimes = new ArrayList<String>();
-        theTimes.add("Early Morning");
-        theTimes.add("Late Morning");
-        theTimes.add("Early Afternoon");
-        theTimes.add("Late Afternoon");
+        theTimes.add("Before 9AM");
+        theTimes.add("9AM-12PM");
+        theTimes.add("12PM-3PM");
+        theTimes.add("3PM-5PM");
 
         BarData numberOfParkings = new BarData(theTimes, barDataSet);
         trendsChart.setData(numberOfParkings);
@@ -46,6 +47,9 @@ public class ParkingTrends extends AppCompatActivity {
         trendsChart.setScaleEnabled(true);
 
         trendsChart.setMaxVisibleValueCount(4);
+
+        barDataSet.setBarSpacePercent(75f);
+
 
         // TODO: read documentation to make bars thinner
 
