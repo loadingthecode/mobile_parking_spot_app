@@ -14,7 +14,8 @@
             android:parentActivityName=".Login" >
         </activity>
         <activity
-            android:name=".Login">
+            android:name=".Login" >
+            //android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" > // LOGIN SCREEN HAS NO ACTIONBAR!!
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

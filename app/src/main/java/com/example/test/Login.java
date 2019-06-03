@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity {
 
         ActionBar bar = getSupportActionBar();
 
-        bar.setTitle("Login"); // set actionbar title
+        bar.setTitle(""); // set actionbar title
 
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
