@@ -54,6 +54,10 @@ public class ResetPassPage extends AppCompatActivity {
                             Toast.makeText(ResetPassPage.this, "Password reset email sent. Please check your email.",
                                     Toast.LENGTH_SHORT).show();
                         }
+                        else {
+                            Toast.makeText(ResetPassPage.this, "Email does not exist. Please try again.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
