@@ -1,5 +1,6 @@
 package com.example.test;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,6 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import android.os.Vibrator;
+import android.os.Build;
+import android.os.VibrationEffect;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,6 +62,7 @@ public class Login extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         if (task.isSuccessful()) {
 
                             FirebaseUser user = mAuth.getCurrentUser();
@@ -69,11 +75,13 @@ public class Login extends AppCompatActivity {
                             }
 
                             else {
+                                vibrateHelper(v);
                                 Toast.makeText(Login.this, "Please check your email and verify your account.",
                                         Toast.LENGTH_SHORT).show();
                             }
 
                         } else {
+                            vibrateHelper(v);
                             Toast.makeText(Login.this, "Your credentials don't match any account information.",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -83,6 +91,26 @@ public class Login extends AppCompatActivity {
     }
 
     public void userLogin (View view) {
-        signIn(email.getText().toString(), pass.getText().toString());
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        String userEmail = email.getText().toString();
+        String userPass = pass.getText().toString();
+
+        if ((! userEmail.isEmpty() && userEmail != null) ||
+                (! userPass.isEmpty() && userPass != null)) {
+            signIn(userEmail, userPass);
+        } else {
+            vibrateHelper(v);
+            Toast.makeText(Login.this, "Please enter your email and password.",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void vibrateHelper(Vibrator vib) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vib.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            vib.vibrate(500);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.test;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,6 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import android.os.Vibrator;
+import android.os.Build;
+import android.os.VibrationEffect;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,7 +46,16 @@ public class ResetPassPage extends AppCompatActivity {
     }
 
     public void userResetPassRequest (View view) {
-        clickToSendPasswordReset(email.getText().toString());
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        String desiredEmail = email.getText().toString();
+
+        if (! desiredEmail.isEmpty() && desiredEmail != null) {
+            clickToSendPasswordReset(email.getText().toString());
+        } else {
+            vibrateHelper(v);
+            Toast.makeText(ResetPassPage.this, "Please enter an email address.",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     // after successfully sending a password reset email
@@ -51,11 +65,21 @@ public class ResetPassPage extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void vibrateHelper(Vibrator vib) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vib.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            vib.vibrate(500);
+        }
+    }
+
     public void clickToSendPasswordReset(String email) {
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Email sent.");
                             Toast.makeText(ResetPassPage.this, "Password reset email sent. Please check your email.",
@@ -63,6 +87,7 @@ public class ResetPassPage extends AppCompatActivity {
                             returnToLoginScreen();
                         }
                         else {
+                            vibrateHelper(v);
                             Toast.makeText(ResetPassPage.this, "Email does not exist. Please try again.",
                                     Toast.LENGTH_SHORT).show();
                         }

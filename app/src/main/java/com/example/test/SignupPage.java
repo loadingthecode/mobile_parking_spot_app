@@ -4,8 +4,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.MatchResult;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.os.VibrationEffect;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -21,10 +25,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import android.os.Vibrator;
+
 public class SignupPage extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private EditText userEmail, pass;
-
+    private EditText userEmail, pass, reenterPass;
 
     //@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +38,24 @@ public class SignupPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userEmail = (EditText)findViewById(R.id.signUpEmail);
         pass = (EditText)findViewById(R.id.signUpPassword);
+        reenterPass = (EditText)findViewById(R.id.signUpReenterPassword);
 
         ActionBar bar = getSupportActionBar();
 
         bar.setTitle("Create a New Account"); // set actionbar title
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
 
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0071ba")));
     }
 
-    private void createAccount(String email, String password) {
-
+    private void createAccount(String email, String password, String reenteredPass) {
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         // Allows only users with a valid Rollins email
         // to sign up for the app
         final String REGEX = "^[a-z0-9]+@rollins.edu$";
 
-        if (userEmail.getText().toString().matches(REGEX)) {
+        if (email.matches(REGEX) &&
+                password.equals(reenteredPass)) {
 
             // [START create_user_with_email]
             // actual creation of account with email and
@@ -64,15 +71,37 @@ public class SignupPage extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     sendEmailVerification();
+                                    returnToLoginScreen();
                                 }
                         }
                     });
             // [END create_user_with_email]
             // prevents unauthorized users from using app
+        } else if (! password.equals(reenteredPass)) {
+            vibrateHelper(v);
+            Toast.makeText(SignupPage.this, "Passwords do not match. Please try again.",
+                    Toast.LENGTH_SHORT).show();
         } else {
+            vibrateHelper(v);
             Toast.makeText(SignupPage.this, "Please enter a valid Rollins email address.",
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void vibrateHelper(Vibrator vib) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vib.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            vib.vibrate(500);
+        }
+    }
+
+    // after successfully sending a password reset email
+    // automatically returns to login screen
+    public void returnToLoginScreen() {
+        Intent intent = new Intent(SignupPage.this, Login.class);
+        startActivity(intent);
     }
 
     private void sendEmailVerification() {
@@ -98,6 +127,6 @@ public class SignupPage extends AppCompatActivity {
     }
 
     public void clickForSignUp(View view) {
-        createAccount(userEmail.getText().toString(), pass.getText().toString());
+        createAccount(userEmail.getText().toString(), pass.getText().toString(), reenterPass.getText().toString());
     }
 }
