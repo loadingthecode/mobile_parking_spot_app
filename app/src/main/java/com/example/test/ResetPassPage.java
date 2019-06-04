@@ -44,6 +44,11 @@ public class ResetPassPage extends AppCompatActivity {
         clickToSendPasswordReset(email.getText().toString());
     }
 
+    public void returnToLoginScreen() {
+        Intent intent = new Intent(ResetPassPage.this, Login.class);
+        startActivity(intent);
+    }
+
     public void clickToSendPasswordReset(String email) {
         mAuth.sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -52,7 +57,8 @@ public class ResetPassPage extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Email sent.");
                             Toast.makeText(ResetPassPage.this, "Password reset email sent. Please check your email.",
-                                    Toast.LENGTH_SHORT).show();
+                                    Toast.LENGTH_LONG).show();
+                            returnToLoginScreen();
                         }
                         else {
                             Toast.makeText(ResetPassPage.this, "Email does not exist. Please try again.",
