@@ -2,7 +2,10 @@ package com.example.test;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -57,6 +60,11 @@ public class ParkingTrends extends AppCompatActivity {
         BarData numberOfParkings = new BarData(theTimes, barDataSet);
 
         trendsChart.getXAxis().setSpaceBetweenLabels(2); // edit the space between labels
+
+        TextView yAxisLabel = (TextView)findViewById(R.id.yAxisLabel);
+
+        RotateAnimation rotate= (RotateAnimation) AnimationUtils.loadAnimation(this,R.anim.rotation);
+        yAxisLabel.setAnimation(rotate);
 
         trendsChart.setData(numberOfParkings);
 
