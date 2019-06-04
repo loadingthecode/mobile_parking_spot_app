@@ -1,11 +1,15 @@
 package com.example.test;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.MenuItem;
 import android.view.Menu;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +17,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar bar = getSupportActionBar();
+
+        bar.setTitle("Rollins Parking App"); // set actionbar title
+
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
     }
 
     public void goToSettings(View view) {

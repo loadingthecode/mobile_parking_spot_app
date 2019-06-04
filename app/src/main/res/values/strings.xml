@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Test</string>
     <string name="underlined_forgot_password"><u>Forgot password?</u></string>
+    <string name="underlined_create_account"><u>Sign Up</u></string>
 </resources>
