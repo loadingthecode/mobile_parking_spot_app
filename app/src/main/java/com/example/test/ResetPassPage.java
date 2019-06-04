@@ -34,7 +34,7 @@ public class ResetPassPage extends AppCompatActivity {
 
         bar.setTitle("Reset Password"); // set actionbar title
 
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0071ba")));
 
         mAuth = FirebaseAuth.getInstance();
         email = (EditText)findViewById(R.id.signInEmail_reset);
@@ -44,6 +44,8 @@ public class ResetPassPage extends AppCompatActivity {
         clickToSendPasswordReset(email.getText().toString());
     }
 
+    // after successfully sending a password reset email
+    // automatically returns to login screen
     public void returnToLoginScreen() {
         Intent intent = new Intent(ResetPassPage.this, Login.class);
         startActivity(intent);
