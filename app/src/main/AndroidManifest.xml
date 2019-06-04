@@ -9,13 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ResetPassPage"></activity>
         <activity
             android:name=".SignupPage"
-            android:parentActivityName=".Login" >
-        </activity>
-        <activity
-            android:name=".Login" >
-            <!--android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" > uncomment for no action bar-->
+            android:parentActivityName=".Login"></activity>
+        <activity android:name=".Login">
+
+            <!-- android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" > uncomment for no action bar -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

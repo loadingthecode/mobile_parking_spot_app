@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,6 +42,11 @@ public class Login extends AppCompatActivity {
     // sends to SignupPage activity
     public void clickToSignup(View view) {
         Intent intent = new Intent(Login.this, SignupPage.class);
+        startActivity(intent);
+    }
+
+    public void clickToGoToPasswordResetPage(View view) {
+        Intent intent = new Intent(Login.this, ResetPassPage.class);
         startActivity(intent);
     }
 
