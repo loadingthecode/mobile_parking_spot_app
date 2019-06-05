@@ -23,6 +23,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Map;
+
 public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText email, pass;
@@ -55,6 +57,15 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goToHomeScreen() {
+        if (Settings.mapHomeScreenSwitchChecked == true) {
+            Intent intent = new Intent(Login.this, InteractiveMap.class);
+        }
+
+        Intent intent = new Intent(Login.this, MainActivity.class);
+        startActivity(intent);
+    }
+
     private void signIn(String email, String pass) {
 
         // [START sign_in_with_email]
@@ -70,8 +81,7 @@ public class Login extends AppCompatActivity {
                             if (user.isEmailVerified()) {
                                 Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(Login.this, MainActivity.class);
-                                startActivity(intent);
+                                goToHomeScreen();
                             }
 
                             else {

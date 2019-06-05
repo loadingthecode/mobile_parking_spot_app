@@ -53,7 +53,6 @@ public class SignupPage extends AppCompatActivity {
         // Allows only users with a valid Rollins email
         // to sign up for the app
         final String REGEX = "^[a-z0-9]+@rollins.edu$";
-
         if (email.matches(REGEX) &&
                 password.equals(reenteredPass)) {
 

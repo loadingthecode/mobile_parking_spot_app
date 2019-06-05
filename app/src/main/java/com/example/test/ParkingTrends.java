@@ -63,10 +63,10 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
         trendsChart.setDrawBarShadow(false);
         trendsChart.setDrawValueAboveBar(true);
         trendsChart.setMaxVisibleValueCount(50);
-        trendsChart.setPinchZoom(false);
+        //trendsChart.setPinchZoom(false);
         trendsChart.setDrawGridBackground(true);
 
-        earlyMorning = new BarEntry(30f, 0);
+        earlyMorning = new BarEntry(50f, 0);
         lateMorning = new BarEntry(10f, 1);
         earlyAfternoon = new BarEntry(26f, 2);
         lateAfternoon = new BarEntry(3f, 3);
@@ -114,7 +114,7 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
             lateAfternoon.setVal(12f);
         } else if (text.equals("Tuesday")) {
             earlyMorning.setVal(12f);
-            lateMorning.setVal(23f);
+            lateMorning.setVal(45f);
             earlyAfternoon.setVal(25f);
             lateAfternoon.setVal(19f);
         } else if (text.equals("Wednesday")) {
@@ -133,7 +133,6 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
             earlyAfternoon.setVal(3f);
             lateAfternoon.setVal(13f);
         }
-
         trendsChart.invalidate();
     }
 
@@ -141,4 +140,5 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }
