@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:background="#DCDCDC"
     tools:context=".ParkingTrends">
 
-    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+    <Spinner
         android:id="@+id/trendsDayChooser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

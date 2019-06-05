@@ -2,4 +2,11 @@
     <string name="app_name">Rollins Parking</string>
     <string name="underlined_forgot_password"><u>Forgot password?</u></string>
     <string name="underlined_create_account"><u>Sign Up</u></string>
+    <string-array name="dayOfWeek">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
 </resources>
