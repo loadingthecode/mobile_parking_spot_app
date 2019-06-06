@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import android.os.Vibrator;
@@ -58,12 +59,14 @@ public class Login extends AppCompatActivity {
     }
 
     public void goToHomeScreen() {
-        if (Settings.mapHomeScreenSwitchChecked == true) {
+        if (Settings.DEFAULTHOMESWITCH.equals(true)) {
             Intent intent = new Intent(Login.this, InteractiveMap.class);
+            startActivity(intent);
+            Toast.makeText(this,"Switch on", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
         }
-
-        Intent intent = new Intent(Login.this, MainActivity.class);
-        startActivity(intent);
     }
 
     private void signIn(String email, String pass) {
@@ -105,13 +108,13 @@ public class Login extends AppCompatActivity {
         String userEmail = email.getText().toString();
         String userPass = pass.getText().toString();
 
-        if ((! userEmail.isEmpty() && userEmail != null) ||
-                (! userPass.isEmpty() && userPass != null)) {
-            signIn(userEmail, userPass);
-        } else {
+        if ((userEmail.isEmpty() || userEmail == null) ||
+                (userPass.isEmpty() || userPass == null)) {
             vibrateHelper(v);
             Toast.makeText(Login.this, "Please enter your email and password.",
                     Toast.LENGTH_SHORT).show();
+        } else {
+            signIn(userEmail, userPass);
         }
     }
 

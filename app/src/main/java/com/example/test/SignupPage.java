@@ -48,6 +48,23 @@ public class SignupPage extends AppCompatActivity {
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0071ba")));
     }
 
+    public void userVerifyFields (View view) {
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        String newEmail = userEmail.getText().toString();
+        String newPass = pass.getText().toString();
+        String newPassAgain = reenterPass.getText().toString();
+
+        if ((newEmail.isEmpty() || userEmail == null) ||
+                (newPass.isEmpty() || newPass == null) ||
+                    (newPassAgain.isEmpty() || newPassAgain == null)) {
+            vibrateHelper(v);
+            Toast.makeText(SignupPage.this, "Please make sure the information is correct.",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            createAccount(newEmail, newPass, newPassAgain);
+        }
+    }
+
     private void createAccount(String email, String password, String reenteredPass) {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         // Allows only users with a valid Rollins email
