@@ -51,7 +51,7 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
         Spinner spinner = findViewById(R.id.trendsDayChooser);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dayOfWeek, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dayOfWeek, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 

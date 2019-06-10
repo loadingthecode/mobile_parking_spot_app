@@ -10,8 +10,8 @@
 
     <Spinner
         android:id="@+id/trendsDayChooser"
-        android:layout_width="match_parent"
-        android:layout_height="23dp"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -19,6 +19,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:hint="Select Day"
+        android:textColor="#000080"
         android:textColorHint="#05ab9a"
         app:layout_constraintBottom_toTopOf="@+id/trendsGraph"
         app:layout_constraintEnd_toEndOf="parent"
