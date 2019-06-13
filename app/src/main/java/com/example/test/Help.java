@@ -1,6 +1,9 @@
 package com.example.test;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +14,12 @@ public class Help extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().setTitle("Help"); // set actionbar title
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // adds back arrow
+        ActionBar bar = getSupportActionBar();
+
+        bar.setTitle("Help"); // set actionbar title
+        bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
+
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0071ba")));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
 
