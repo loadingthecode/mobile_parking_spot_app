@@ -28,6 +28,7 @@ import com.github.mikephil.charting.components.AxisBase;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParkingTrends extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -76,7 +77,12 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
         barEntries.add(earlyAfternoon);
         barEntries.add(lateAfternoon);
 
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS); // from barchart video indian speaker
+        int [] colors = {Color.rgb(0,0,128), Color.rgb(120, 178, 255),
+                Color.rgb(0, 0, 255), Color.rgb(153, 204, 255)};
+
+        List<Integer> myColors = ColorTemplate.createColors(colors);
+
+        barDataSet.setColors(myColors);// from barchart video indian speaker
 
         ArrayList<String> theTimes = new ArrayList<String>();
         theTimes.add("Before 9AM");
