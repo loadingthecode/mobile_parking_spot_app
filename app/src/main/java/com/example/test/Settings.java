@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -32,7 +33,8 @@ public class Settings extends AppCompatActivity {
         bar.setTitle("Settings"); // set actionbar title
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
 
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0071ba")));
+        bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Settings" + "</font>"));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
         saveButton = (Button) findViewById(R.id.saveButton);
         defaultHomeSwitch = (Switch)findViewById(R.id.defaultHomeSwitch);

@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +26,8 @@ public class BugReport extends AppCompatActivity {
         bar.setTitle("Send a Bug Report"); // set actionbar title
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
 
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0071ba")));
+        bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Report a Bug" + "</font>"));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
         //to = findViewById(R.id.to);
         subject = findViewById(R.id.userSubject);

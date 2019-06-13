@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
@@ -49,6 +50,8 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
 
         ActionBar bar = getSupportActionBar();
         bar.setTitle("Parking Trends"); // set actionbar title
+
+        bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Parking Trends" + "</font>"));
         bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
         Spinner spinner = findViewById(R.id.trendsDayChooser);

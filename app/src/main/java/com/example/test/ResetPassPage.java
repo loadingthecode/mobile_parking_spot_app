@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -39,7 +40,8 @@ public class ResetPassPage extends AppCompatActivity {
 
         bar.setTitle("Reset Password"); // set actionbar title
 
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0071ba")));
+        bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Reset Password" + "</font>"));
+        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
         mAuth = FirebaseAuth.getInstance();
         email = (EditText)findViewById(R.id.signInEmail_reset);
