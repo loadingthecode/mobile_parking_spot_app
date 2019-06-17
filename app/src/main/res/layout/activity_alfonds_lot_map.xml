@@ -7,21 +7,20 @@
     android:background="#0071ba"
     tools:context=".InteractiveMap">
 
-    <Spinner
-        android:id="@+id/lotChooser"
-        android:layout_width="360dp"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="512dp"
-        android:hint="Select Day"
-        android:textColor="#000080"
-        android:textColorHint="#05ab9a"
+        android:layout_marginBottom="8dp"
+        android:scaleY="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/garage" />
 </android.support.constraint.ConstraintLayout>

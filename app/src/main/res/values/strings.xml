@@ -9,4 +9,8 @@
         <item>Thursday</item>
         <item>Friday</item>
     </string-array>
+    <string-array name="parkingLotList">
+        <item>Alfonds</item>
+        <item>SunTrust</item>
+    </string-array>
 </resources>
