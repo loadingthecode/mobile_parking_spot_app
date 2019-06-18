@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.Menu;
 import android.widget.EditText;
 
+import java.net.InterfaceAddress;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToInteractiveMap(View view) {
-        Intent mapIntent = new Intent(this, InteractiveMap.class);
+        Intent mapIntent = new Intent(this, InteractiveMap.class); // change this back to InteractiveMap.class
         startActivity(mapIntent);
     }
 }
