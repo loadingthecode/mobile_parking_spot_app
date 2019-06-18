@@ -21,16 +21,37 @@ import com.google.firebase.database.ValueEventListener;
 
 public class InteractiveMap extends AppCompatActivity {
 
-    String [] lotList={"Alfonds", "SunTrust"};
+    private static final String TAG = "AlfondsMap";
 
+    // Firebase only takes longs and doubles, not ints
     public static long lightMeasurement;
 
     private TextView lightLevel;
+    public ImageView parkingIndicator;
 
     DatabaseReference databaseSensors;
-    private static final String TAG = "AlfondsMap";
 
-    public ImageView parkingIndicator;
+    // method that constantly updates parking indicator
+    // based on firebase snapshot
+    public void takeSnapshot(long light, DataSnapshot ds) {
+        // gets the actual light value of a sensor
+        light = (long) ds.child("Sensor3").child("light").getValue();
+
+        // For debugging purposes
+        // converting light # to viewable string
+        String stringValue = Double.toString(light);
+
+        // setting the viewable text to the String light value
+        lightLevel.setText(stringValue);
+
+        // parking spot turns red if the measured
+        // light is less than 100 lumens
+        if (light < 100.00) {
+            parkingIndicator.setImageResource(R.drawable.parking_unavailable);
+        } else {
+            parkingIndicator.setImageResource(R.drawable.parking_available);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,26 +75,12 @@ public class InteractiveMap extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
 
-                // counts the number of children starting from root
-                //long childrenCount = dataSnapshot.getChildrenCount();
-
                 // gets the actual light value of a sensor
                 lightMeasurement = (long) dataSnapshot.child("Sensor3").child("light").getValue();
 
-                // outputs a message of current light level
-                //Toast.makeText(InteractiveMap.this, "Light is " + value, Toast.LENGTH_SHORT).show();
-
-                String stringValue = Double.toString(lightMeasurement);
-
-                lightLevel.setText(stringValue);
-
-                if (lightMeasurement < 100.00) {
-                    parkingIndicator.setImageResource(R.drawable.parking_unavailable);
-                } else {
-                    parkingIndicator.setImageResource(R.drawable.parking_available);
-                }
-
-                //Log.d(TAG, "Value is: " + light);
+                // method that constantly updates parking indicator
+                // based on firebase snapshot
+                takeSnapshot(lightMeasurement, dataSnapshot);
             }
 
             @Override
