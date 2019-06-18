@@ -23,17 +23,21 @@ public class InteractiveMap extends AppCompatActivity {
 
     String [] lotList={"Alfonds", "SunTrust"};
 
+    public static long lightMeasurement;
+
     private TextView lightLevel;
 
     DatabaseReference databaseSensors;
     private static final String TAG = "AlfondsMap";
 
-    //private ImageView
+    public ImageView parkingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interactive_map);
+
+        parkingIndicator = findViewById(R.id.parkingIndicator);
 
         databaseSensors = FirebaseDatabase.getInstance().getReference("");
         lightLevel = findViewById(R.id.lightLevel);
@@ -54,14 +58,20 @@ public class InteractiveMap extends AppCompatActivity {
                 //long childrenCount = dataSnapshot.getChildrenCount();
 
                 // gets the actual light value of a sensor
-                double value = (double) dataSnapshot.child("Sensor3").child("light").getValue();
+                lightMeasurement = (long) dataSnapshot.child("Sensor3").child("light").getValue();
 
                 // outputs a message of current light level
                 //Toast.makeText(InteractiveMap.this, "Light is " + value, Toast.LENGTH_SHORT).show();
 
-                String stringValue = Double.toString(value);
+                String stringValue = Double.toString(lightMeasurement);
 
                 lightLevel.setText(stringValue);
+
+                if (lightMeasurement < 100.00) {
+                    parkingIndicator.setImageResource(R.drawable.parking_unavailable);
+                } else {
+                    parkingIndicator.setImageResource(R.drawable.parking_available);
+                }
 
                 //Log.d(TAG, "Value is: " + light);
             }
