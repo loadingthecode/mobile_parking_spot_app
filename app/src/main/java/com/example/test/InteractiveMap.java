@@ -1,8 +1,10 @@
 package com.example.test;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +15,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class InteractiveMap extends AppCompatActivity {
 
     private static final String TAG = "InteractiveMap";
@@ -20,6 +24,8 @@ public class InteractiveMap extends AppCompatActivity {
     // Firebase only takes longs and doubles, not ints
     private static long lightMeasurement;
     private static long numOfSensors;
+    private static ArrayList<Indicator> indicatorList = new ArrayList<>();
+    private static ImageView[] indicatorImages = new ImageView[3];
 
     // for debugging
     private TextView lightLevel;
@@ -53,12 +59,29 @@ public class InteractiveMap extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interactive_map);
 
-        parkingIndicator = findViewById(R.id.Sensor1);
+        parkingIndicator = findViewById(R.id.sensor0);
         lightLevel = findViewById(R.id.lightLevel);
         sensorCount = findViewById(R.id.numberOfSensors);
 
         databaseSensors = FirebaseDatabase.getInstance().getReference("");
 
+        for (int i = 0; i < numOfSensors; i++) {
+            String spotID = "sensor" + i;
+            Indicator spot = new Indicator(R.id.sensor0, spotID, 0);
+            indicatorList.add(spot);
+        }
+
+        //TODO: focus here
+        ImageView sensor2 =(ImageView) findViewById(R.id.sensor2);
+
+        for (int i = 0; i < indicatorImages.length; i++) {
+            int id = getResources().getIdentifier("sensor" + i, "id", getPackageName());
+            ImageView iv = (ImageView) findViewById(id);
+            iv.setImageResource(R.drawable.map);
+            indicatorImages[i] = iv;
+            indicatorImages[i].setImageResource(R.drawable.new_parking_icon);
+        }
+        //
     }
 
     // getting the number of sensors in database
@@ -84,12 +107,9 @@ public class InteractiveMap extends AppCompatActivity {
                 // converting it to a string for debugging
                 sensorCount.setText(getNumOfSensors(dataSnapshot));
 
-                /*for (int i = 0; i < numOfSensors; i++) {
-                    Indicator spot = new Indicator(R.id.parkingIndicator, "Sensor" + i, 0);
-                }*/
-
                 // gets the actual light value of a sensor
-                lightMeasurement = (long) dataSnapshot.child("Sensor1").child("light").getValue();
+                // make sure to uncomment this
+                lightMeasurement = (long) dataSnapshot.child("Sensor0").child("light").getValue();
 
                 // method that constantly updates parking indicator
                 // based on firebase snapshot

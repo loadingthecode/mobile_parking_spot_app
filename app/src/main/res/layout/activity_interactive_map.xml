@@ -80,7 +80,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/Sensor1"
+        android:id="@+id/sensor0"
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="256dp"
+        android:layout_marginRight="256dp"
+        android:layout_marginBottom="256dp"
+        android:scaleX=".50"
+        android:scaleY=".50"
+        android:tag="s1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.506"
+        app:srcCompat="@drawable/parking_available" />
+
+    <ImageView
+        android:id="@+id/sensor1"
         android:layout_width="150sp"
         android:layout_height="150sp"
         android:layout_marginStart="8dp"
@@ -91,6 +112,28 @@
         android:layout_marginBottom="256dp"
         android:scaleX=".50"
         android:scaleY=".50"
+        android:tag="s2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.506"
+        app:srcCompat="@drawable/parking_available" />
+
+    <ImageView
+        android:id="@+id/sensor2"
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:layout_marginStart="256dp"
+        android:layout_marginLeft="256dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="256dp"
+        android:scaleX=".50"
+        android:scaleY=".50"
+        android:tag="s3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
