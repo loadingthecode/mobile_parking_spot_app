@@ -56,7 +56,7 @@ public class AlfondsMap extends AppCompatActivity {
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Parking Lot Map" + "</font>"));
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
     }
 }

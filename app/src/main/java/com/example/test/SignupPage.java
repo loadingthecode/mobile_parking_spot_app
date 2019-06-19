@@ -47,7 +47,7 @@ public class SignupPage extends AppCompatActivity {
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Create New Account" + "</font>"));
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
     }
 
     public void userVerifyFields (View view) {

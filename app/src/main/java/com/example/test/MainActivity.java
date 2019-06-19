@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         bar.setTitle("Rollins Parking App"); // set actionbar title
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + getString(R.string.app_name) + "</font>"));
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
     }
 
     public void goToSettings(View view) {

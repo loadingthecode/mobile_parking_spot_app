@@ -41,7 +41,7 @@ public class ResetPassPage extends AppCompatActivity {
         bar.setTitle("Reset Password"); // set actionbar title
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Reset Password" + "</font>"));
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
         mAuth = FirebaseAuth.getInstance();
         email = (EditText)findViewById(R.id.signInEmail_reset);

@@ -34,9 +34,6 @@ public class InteractiveMap extends AppCompatActivity {
     // method that constantly updates parking indicator
     // based on firebase snapshot
     public void takeSnapshot(long light, DataSnapshot ds) {
-        // gets the actual light value of a sensor
-        light = (long) ds.child("Sensor3").child("light").getValue();
-
         // For debugging purposes
         // converting light # to viewable string
         String stringValue = Double.toString(light);

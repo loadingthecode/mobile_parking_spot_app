@@ -27,7 +27,7 @@ public class BugReport extends AppCompatActivity {
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Report a Bug" + "</font>"));
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
         //to = findViewById(R.id.to);
         subject = findViewById(R.id.userSubject);

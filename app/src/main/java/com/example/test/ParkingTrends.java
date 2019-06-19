@@ -52,7 +52,7 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
         bar.setTitle("Parking Trends"); // set actionbar title
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Parking Trends" + "</font>"));
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
         Spinner spinner = findViewById(R.id.trendsDayChooser);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dayOfWeek, R.layout.spinner_item);

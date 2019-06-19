@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0071ba"
+    android:background="@color/colorBackground"
     tools:context=".ResetPassPage">
 
     <ImageView
@@ -57,6 +57,7 @@
         android:ems="10"
         android:hint="E-Mail Address"
         android:inputType="textEmailAddress"
+        android:theme="@style/EditTextTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,11 +74,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/pass_reset_button_background"
+        android:background="@drawable/button_background"
         android:onClick="userResetPassRequest"
         android:text="Send reset email"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:theme="@style/ButtonTextTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +94,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="332dp"
         android:text='If you forgot your password, you can reset it below. Type in your Rollins email and press the "Send Reset Email" button.'
-        android:textSize="20sp"
+        android:theme="@style/EditTextTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"

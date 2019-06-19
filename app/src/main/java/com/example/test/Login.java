@@ -41,7 +41,7 @@ public class Login extends AppCompatActivity {
         bar.setTitle("Login"); // set actionbar title
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Login" + "</font>"));
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
         mAuth = FirebaseAuth.getInstance();
         email = (EditText)findViewById(R.id.signInEmail);

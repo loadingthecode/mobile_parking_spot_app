@@ -34,7 +34,7 @@ public class Settings extends AppCompatActivity {
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Settings" + "</font>"));
-        bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
         saveButton = (Button) findViewById(R.id.saveButton);
         defaultHomeSwitch = (Switch)findViewById(R.id.defaultHomeSwitch);
