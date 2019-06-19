@@ -1,15 +1,9 @@
 package com.example.test;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,14 +15,18 @@ import com.google.firebase.database.ValueEventListener;
 
 public class InteractiveMap extends AppCompatActivity {
 
-    private static final String TAG = "AlfondsMap";
+    private static final String TAG = "InteractiveMap";
 
     // Firebase only takes longs and doubles, not ints
-    public static long lightMeasurement;
+    private static long lightMeasurement;
+    private static long numOfSensors;
 
+    // for debugging
     private TextView lightLevel;
-    public ImageView parkingIndicator;
+    private TextView sensorCount;
+    private ImageView parkingIndicator;
 
+    // creating the database object
     DatabaseReference databaseSensors;
 
     // method that constantly updates parking indicator
@@ -55,10 +53,20 @@ public class InteractiveMap extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interactive_map);
 
-        parkingIndicator = findViewById(R.id.parkingIndicator);
+        parkingIndicator = findViewById(R.id.Sensor1);
+        lightLevel = findViewById(R.id.lightLevel);
+        sensorCount = findViewById(R.id.numberOfSensors);
 
         databaseSensors = FirebaseDatabase.getInstance().getReference("");
-        lightLevel = findViewById(R.id.lightLevel);
+
+    }
+
+    // getting the number of sensors in database
+    // converting it to a string for debugging
+    public String getNumOfSensors(DataSnapshot ds) {
+        numOfSensors = ds.getChildrenCount();
+        String convertedCount = Long.toString(numOfSensors);
+        return convertedCount;
     }
 
     @Override
@@ -72,8 +80,16 @@ public class InteractiveMap extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
 
+                // getting the number of sensors in database
+                // converting it to a string for debugging
+                sensorCount.setText(getNumOfSensors(dataSnapshot));
+
+                /*for (int i = 0; i < numOfSensors; i++) {
+                    Indicator spot = new Indicator(R.id.parkingIndicator, "Sensor" + i, 0);
+                }*/
+
                 // gets the actual light value of a sensor
-                lightMeasurement = (long) dataSnapshot.child("Sensor3").child("light").getValue();
+                lightMeasurement = (long) dataSnapshot.child("Sensor1").child("light").getValue();
 
                 // method that constantly updates parking indicator
                 // based on firebase snapshot
