@@ -1,10 +1,8 @@
 package com.example.test;
 
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,65 +22,19 @@ public class InteractiveMap extends AppCompatActivity {
     // Firebase only takes longs and doubles, not ints
     private static long lightMeasurement;
     private static long numOfSensors;
+
     private static ArrayList<Indicator> indicatorList = new ArrayList<>();
     private static ImageView[] indicatorImages = new ImageView[3];
 
+    // debugging light levels;
+    // delete later
+    private static ArrayList<TextView> debugTextViews = new ArrayList<>();
+
     // for debugging
-    private TextView lightLevel;
     private TextView sensorCount;
-    private ImageView parkingIndicator;
 
     // creating the database object
     DatabaseReference databaseSensors;
-
-    // method that constantly updates parking indicator
-    // based on firebase snapshot
-    public void takeSnapshot(long light, DataSnapshot ds) {
-        // For debugging purposes
-        // converting light # to viewable string
-        String stringValue = Double.toString(light);
-
-        // setting the viewable text to the String light value
-        lightLevel.setText(stringValue);
-
-        // parking spot turns red if the measured
-        // light is less than 100 lumens
-        if (light < 100.00) {
-            parkingIndicator.setImageResource(R.drawable.parking_unavailable);
-        } else {
-            parkingIndicator.setImageResource(R.drawable.parking_available);
-        }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_interactive_map);
-
-        parkingIndicator = findViewById(R.id.sensor0);
-        lightLevel = findViewById(R.id.lightLevel);
-        sensorCount = findViewById(R.id.numberOfSensors);
-
-        databaseSensors = FirebaseDatabase.getInstance().getReference("");
-
-        for (int i = 0; i < numOfSensors; i++) {
-            String spotID = "sensor" + i;
-            Indicator spot = new Indicator(R.id.sensor0, spotID, 0);
-            indicatorList.add(spot);
-        }
-
-        //TODO: focus here
-        ImageView sensor2 =(ImageView) findViewById(R.id.sensor2);
-
-        for (int i = 0; i < indicatorImages.length; i++) {
-            int id = getResources().getIdentifier("sensor" + i, "id", getPackageName());
-            ImageView iv = (ImageView) findViewById(id);
-            iv.setImageResource(R.drawable.map);
-            indicatorImages[i] = iv;
-            indicatorImages[i].setImageResource(R.drawable.new_parking_icon);
-        }
-        //
-    }
 
     // getting the number of sensors in database
     // converting it to a string for debugging
@@ -90,6 +42,62 @@ public class InteractiveMap extends AppCompatActivity {
         numOfSensors = ds.getChildrenCount();
         String convertedCount = Long.toString(numOfSensors);
         return convertedCount;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_interactive_map);
+
+        sensorCount = findViewById(R.id.numberOfSensors);
+
+        databaseSensors = FirebaseDatabase.getInstance().getReference("");
+
+        // initialization of the indicator and textview lists
+        // populating the indicator objects with sensorID and light levels
+        for (int i = 0; i < indicatorImages.length; i++) {
+            // getting the spotID and matching it by index with
+            // each sensor
+            String spotID = "sensor" + i;
+            Indicator spot = new Indicator(spotID, 0);
+            indicatorList.add(spot);
+
+            int imageId = getResources().getIdentifier("sensor" + i, "id", getPackageName());
+            ImageView iv = (ImageView) findViewById(imageId);
+            indicatorImages[i] = iv;
+            indicatorList.get(i).setStatus(indicatorImages[i]);
+
+            // debugging light levels for all 3 indicators
+            // delete later
+            int lightLevelDebugId = getResources().getIdentifier("lightLevel" + i, "id", getPackageName());
+            TextView tv = (TextView) findViewById(lightLevelDebugId);
+            debugTextViews.add(tv);
+
+        }
+    }
+
+    // method that constantly updates parking indicator
+    // based on firebase snapshot
+    public void takeSnapshot(DataSnapshot ds) {
+
+        for (int i = 0; i < indicatorImages.length; i++) {
+            // gets the actual light value of a sensor
+            indicatorList.get(i).setLight((long) ds.child("Sensor" + i).child("light").getValue());
+
+            // stores current iteration's light level
+            // in a long
+            long sensorLightLevel = indicatorList.get(i).getLight();
+
+            // for debugging:
+            // visualizes real-time light data for each sensor
+            debugTextViews.get(i).setText(Long.toString(sensorLightLevel));
+
+            if (sensorLightLevel < 100) {
+                indicatorImages[i].setImageResource(R.drawable.parking_unavailable);
+            } else {
+                indicatorImages[i].setImageResource(R.drawable.parking_available);
+            }
+        }
     }
 
     @Override
@@ -107,13 +115,9 @@ public class InteractiveMap extends AppCompatActivity {
                 // converting it to a string for debugging
                 sensorCount.setText(getNumOfSensors(dataSnapshot));
 
-                // gets the actual light value of a sensor
-                // make sure to uncomment this
-                lightMeasurement = (long) dataSnapshot.child("Sensor0").child("light").getValue();
-
                 // method that constantly updates parking indicator
                 // based on firebase snapshot
-                takeSnapshot(lightMeasurement, dataSnapshot);
+                takeSnapshot(dataSnapshot);
             }
 
             @Override

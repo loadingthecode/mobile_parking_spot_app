@@ -1,35 +1,23 @@
 package com.example.test;
 
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class Indicator {
     private ImageView status;
-    private int color;
+    private TextView lightDebug;
     private String id;
-
     private long light;
-
-
 
     public Indicator() {
         // default constructor
-        this.color = 0;
         this.id = "";
         this.light = 0;
     }
 
-    public Indicator(int color, String id, long light) {
-        this.color = color;
+    public Indicator(String id, long light) {
         this.id = id;
         this.light = light;
-    }
-
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
     }
 
     public String getId() {
@@ -54,5 +42,13 @@ public class Indicator {
 
     public void setStatus(ImageView status) {
         this.status = status;
+    }
+
+    public TextView getLightDebug() {
+        return lightDebug;
+    }
+
+    public void setLightDebug(TextView lightDebug) {
+        this.lightDebug = lightDebug;
     }
 }
