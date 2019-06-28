@@ -20,11 +20,10 @@ public class InteractiveMap extends AppCompatActivity {
     private static final String TAG = "InteractiveMap";
 
     // Firebase only takes longs and doubles, not ints
-    private static long lightMeasurement;
     private static long numOfSensors;
 
     private static ArrayList<Indicator> indicatorList = new ArrayList<>();
-    private static ImageView[] indicatorImages = new ImageView[3];
+    private static ImageView[] indicatorImages = new ImageView[4];
 
     // debugging light levels;
     // delete later
@@ -49,6 +48,7 @@ public class InteractiveMap extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interactive_map);
 
+        // matching the # of sensors to a TextView for debugging
         sensorCount = findViewById(R.id.numberOfSensors);
 
         databaseSensors = FirebaseDatabase.getInstance().getReference("");
@@ -62,17 +62,23 @@ public class InteractiveMap extends AppCompatActivity {
             Indicator spot = new Indicator(spotID, 0);
             indicatorList.add(spot);
 
+            // storing each xml imageview sensor into an int
+            // creating an java imageview object and putting the xml imageview into it
+            // storing that java imageview into an imageview array
+            // going through indicator array and setting each indicator's imageview status to
+            // its iterative counterpart in the imageview array
             int imageId = getResources().getIdentifier("sensor" + i, "id", getPackageName());
             ImageView iv = (ImageView) findViewById(imageId);
             indicatorImages[i] = iv;
             indicatorList.get(i).setStatus(indicatorImages[i]);
 
             // debugging light levels for all 3 indicators
-            // delete later
+            // storing each xml textview object into an int
+            // creating a java textview object and putting the xml textview into it
+            // adding each textview to a list of textviews
             int lightLevelDebugId = getResources().getIdentifier("lightLevel" + i, "id", getPackageName());
             TextView tv = (TextView) findViewById(lightLevelDebugId);
             debugTextViews.add(tv);
-
         }
     }
 
@@ -89,7 +95,7 @@ public class InteractiveMap extends AppCompatActivity {
             long sensorLightLevel = indicatorList.get(i).getLight();
 
             // for debugging:
-            // visualizes real-time light data for each sensor
+            // visualizes real-time light data for each sensor via textview
             debugTextViews.get(i).setText(Long.toString(sensorLightLevel));
 
             if (sensorLightLevel < 100) {
