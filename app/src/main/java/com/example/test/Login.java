@@ -155,6 +155,8 @@ public class Login extends AppCompatActivity {
             vibrateHelper(v);
             Toast.makeText(Login.this, "Please enter your email and password.",
                     Toast.LENGTH_SHORT).show();
+            stayLoggedIn.setChecked(false);
+            checkLoginSaved();
         } else {
             signIn(userEmail, userPass);
         }
