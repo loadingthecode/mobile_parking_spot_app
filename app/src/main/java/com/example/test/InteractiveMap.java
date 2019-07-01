@@ -87,7 +87,7 @@ public class InteractiveMap extends AppCompatActivity {
     public void takeSnapshot(DataSnapshot ds) {
 
         for (int i = 0; i < indicatorImages.length; i++) {
-            // gets the actual light value of a sensor
+            // sets the light value of each 
             indicatorList.get(i).setLight((long) ds.child("Sensor" + i).child("light").getValue());
 
             // stores current iteration's light level

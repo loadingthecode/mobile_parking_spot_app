@@ -7,6 +7,27 @@
     android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/logout"
+        style="@style/DefaultButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="512dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:alpha="1"
+        android:background="@android:color/transparent"
+        android:onClick="goToLogin"
+        android:text="@string/underlined_log_out"
+        android:theme="@style/SmallTextViewTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/otherWatermark5"
         android:layout_width="wrap_content"

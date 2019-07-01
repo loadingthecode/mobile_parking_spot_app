@@ -2,6 +2,7 @@ package com.example.test;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -27,9 +29,15 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Map;
 
+import static java.lang.System.in;
+
 public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText email, pass;
+
+    private CheckBox stayLoggedIn;
+    protected static SharedPreferences prefs;
+    private static final String PREFS_NAME = "PrefsFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +51,27 @@ public class Login extends AppCompatActivity {
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Login" + "</font>"));
         //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
+        prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        stayLoggedIn = (CheckBox) findViewById(R.id.rememberMe);
+
+
         mAuth = FirebaseAuth.getInstance();
         email = (EditText)findViewById(R.id.signInEmail);
         pass = (EditText)findViewById(R.id.signInPassword);
+
+        getPreferencesData();
+
+        if (stayLoggedIn.isChecked()) {
+            goToHomeScreen();
+        }
+    }
+
+    private void getPreferencesData() {
+        SharedPreferences sp = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        if(sp.contains("pref_check")) {
+            Boolean b = sp.getBoolean("pref_check", false);
+            stayLoggedIn.setChecked(b);
+        }
     }
 
     // if user clicks "CREATE ACCOUNT" button
@@ -61,14 +87,16 @@ public class Login extends AppCompatActivity {
     }
 
     public void goToHomeScreen() {
-        if (Settings.DEFAULTHOMESWITCH.equals(true)) {
-            Intent intent = new Intent(Login.this, InteractiveMap.class);
-            startActivity(intent);
-            Toast.makeText(this,"Switch on", Toast.LENGTH_SHORT).show();
-        } else {
-            Intent intent = new Intent(Login.this, MainActivity.class);
-            startActivity(intent);
-        }
+        Intent intent = new Intent(Login.this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    // checks if the user wants to stay logged in
+    public void checkLoginSaved() {
+        Boolean boxIsChecked = stayLoggedIn.isChecked();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("pref_check", boxIsChecked);
+        editor.apply();
     }
 
     private void signIn(String email, String pass) {
@@ -86,6 +114,12 @@ public class Login extends AppCompatActivity {
                             if (user.isEmailVerified()) {
                                 Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
+                                if (stayLoggedIn.isChecked()) {
+                                    checkLoginSaved();
+                                } else {
+                                    prefs.edit().clear().apply();
+                                }
+
                                 goToHomeScreen();
                             }
 
@@ -93,12 +127,18 @@ public class Login extends AppCompatActivity {
                                 vibrateHelper(v);
                                 Toast.makeText(Login.this, "Please check your email and verify your account.",
                                         Toast.LENGTH_SHORT).show();
+
+                                stayLoggedIn.setChecked(false);
+                                checkLoginSaved();
                             }
 
                         } else {
                             vibrateHelper(v);
                             Toast.makeText(Login.this, "Your credentials don't match any account information.",
                                     Toast.LENGTH_SHORT).show();
+
+                            stayLoggedIn.setChecked(false);
+                            checkLoginSaved();
                         }
                     }
                 });

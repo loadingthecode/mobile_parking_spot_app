@@ -1,6 +1,7 @@
 package com.example.test;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
@@ -27,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + getString(R.string.app_name) + "</font>"));
         //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+    }
+
+    public void goToLogin(View view) {
+        Intent loginIntent = new Intent(this, Login.class);
+        startActivity(loginIntent);
+        Login.prefs.edit().clear().apply();
     }
 
     public void goToSettings(View view) {
