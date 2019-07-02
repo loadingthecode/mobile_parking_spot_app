@@ -9,10 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.MenuItem;
 import android.view.Menu;
 import android.widget.EditText;
+
+import com.google.firebase.messaging.RemoteMessage;
 
 import java.net.InterfaceAddress;
 
@@ -29,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + getString(R.string.app_name) + "</font>"));
         //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+    }
+
+    public void goToDebug(View view) {
+        Intent debugIntent = new Intent(this, SensorDebug.class);
+        startActivity(debugIntent);
     }
 
     public void goToLogin(View view) {
@@ -57,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(helpIntent);
     }
 
-    public void goToInteractiveMap(View view) {
-        Intent mapIntent = new Intent(this, InteractiveMap.class); // change this back to InteractiveMap.class
-        startActivity(mapIntent);
+    public void goToGarageChooser(View view) {
+        Intent chooseGarageIntent = new Intent(this, ChooseGarage.class);
+        startActivity(chooseGarageIntent);
     }
 }

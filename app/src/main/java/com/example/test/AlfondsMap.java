@@ -30,7 +30,7 @@ public class AlfondsMap extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alfonds_lot_map);
 
-        databaseSensors = FirebaseDatabase.getInstance().getReference("parkingapp-c075d");
+        /*databaseSensors = FirebaseDatabase.getInstance().getReference("parkingapp-c075d");
 
         // Read from the database
         databaseSensors.addValueEventListener(new ValueEventListener() {
@@ -49,7 +49,7 @@ public class AlfondsMap extends AppCompatActivity {
                 Toast.makeText(AlfondsMap.this, "Error", Toast.LENGTH_SHORT).show();
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
-        });
+        });*/
 
         ActionBar bar = getSupportActionBar();
 

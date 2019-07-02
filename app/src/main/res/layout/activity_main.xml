@@ -60,7 +60,7 @@
         android:layout_marginRight="256dp"
         android:layout_marginBottom="128dp"
         android:background="@drawable/map"
-        android:onClick="goToInteractiveMap"
+        android:onClick="goToGarageChooser"
         android:padding="10dp"
         android:textColor="@android:color/black"
         android:textSize="14sp"
@@ -168,6 +168,23 @@
         android:tooltipText="Favorites"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/debugButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="192dp"
+        android:layout_marginLeft="192dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="512dp"
+        android:onClick="goToDebug"
+        android:text="Debug Sensors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/otherWatermark5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

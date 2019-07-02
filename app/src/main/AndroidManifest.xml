@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.test">
-    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -11,11 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".SuntrustMap"
+            android:parentActivityName=".ChooseGarage" />
+        <activity
+            android:name=".SuttonMap"
+            android:parentActivityName=".ChooseGarage" />
+        <activity
+            android:name=".AlfondsMap"
+            android:parentActivityName=".ChooseGarage" />
+        <activity
+            android:name=".ChooseGarage"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SensorDebug"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".ResetPassPage"
-            android:parentActivityName=".Login"></activity>
+            android:parentActivityName=".Login" />
         <activity
             android:name=".SignupPage"
-            android:parentActivityName=".Login"></activity>
+            android:parentActivityName=".Login" />
         <activity android:name=".Login">
 
             <!-- android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" > uncomment for no action bar -->
@@ -23,13 +39,11 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ParkingTrends"
-            android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".InteractiveMap"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".BugReport"

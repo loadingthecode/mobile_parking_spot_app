@@ -11,7 +11,9 @@
         <item>Friday</item>
     </string-array>
     <string-array name="parkingLotList">
+        <item>Select Parking Lot</item>
         <item>Alfonds</item>
         <item>SunTrust</item>
+        <item>Sutton</item>
     </string-array>
 </resources>

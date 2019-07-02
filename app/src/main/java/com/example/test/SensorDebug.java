@@ -1,8 +1,7 @@
 package com.example.test;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.ActionBar;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -17,9 +16,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class InteractiveMap extends AppCompatActivity {
+public class SensorDebug extends AppCompatActivity {
 
-    private static final String TAG = "InteractiveMap";
+    private static final String TAG = "SensorDebug";
 
     // Firebase only takes longs and doubles, not ints
     private static long numOfSensors;
@@ -48,7 +47,7 @@ public class InteractiveMap extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_interactive_map);
+        setContentView(R.layout.activity_sensor_debug);
 
         // matching the # of sensors to a TextView for debugging
         sensorCount = findViewById(R.id.numberOfSensors);
@@ -89,7 +88,7 @@ public class InteractiveMap extends AppCompatActivity {
     public void takeSnapshot(DataSnapshot ds) {
 
         for (int i = 0; i < indicatorImages.length; i++) {
-            // sets the light value of each 
+            // sets the light value of each
             indicatorList.get(i).setLight((long) ds.child("Sensor" + i).child("light").getValue());
 
             // stores current iteration's light level
@@ -131,7 +130,7 @@ public class InteractiveMap extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                Toast.makeText(InteractiveMap.this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SensorDebug.this, "Error", Toast.LENGTH_SHORT).show();
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
