@@ -2,8 +2,9 @@ package com.example.test;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
