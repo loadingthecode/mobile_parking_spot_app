@@ -14,15 +14,16 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public class Settings extends AppCompatActivity {
 
-    private Switch defaultHomeSwitch;
     private Button saveButton;
 
-    public static final String SHARED_PREFS = "shared_prefs";
-    public static final String DEFAULTHOMESWITCH = "defaultHomeSwitch";
+    protected static Switch toggleNotifsSwitch;
 
-    private boolean switchOnOff;
+    protected static SharedPreferences settingsPrefs;
+    protected static final String PREFS_NAME = "PrefSettings";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,52 +36,24 @@ public class Settings extends AppCompatActivity {
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Settings" + "</font>"));
-        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
-        saveButton = (Button) findViewById(R.id.saveButton);
-        defaultHomeSwitch = (Switch)findViewById(R.id.defaultHomeSwitch);
+        toggleNotifsSwitch = findViewById(R.id.notificationsSwitch);
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveData();
-            }
-        });
-
-        /*defaultHomeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        settingsPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        final SharedPreferences.Editor editor = settingsPrefs.edit();
+        toggleNotifsSwitch.setChecked(settingsPrefs.getBoolean(PREFS_NAME, true));
+        toggleNotifsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferences.Editor editor = getSharedPreferences("com.example.xyz", MODE_PRIVATE).edit();
                 if (isChecked) {
-                    mapHomeScreenSwitchChecked = true;
+                    FirebaseMessaging.getInstance().subscribeToTopic("alerts");
+                    editor.putBoolean(PREFS_NAME, true);
                 } else {
-                    mapHomeScreenSwitchChecked = false;
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic("alerts");
+                    editor.putBoolean(PREFS_NAME, false);
                 }
+                editor.commit();
             }
-        });*/
-
-        loadData();
-        updateViews();
-    }
-
-    public void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putBoolean(DEFAULTHOMESWITCH, defaultHomeSwitch.isChecked());
-
-        editor.apply();
-
-        Toast.makeText(this, "Settings have been saved.", Toast.LENGTH_SHORT).show();
-
-    }
-
-    public void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        switchOnOff = sharedPreferences.getBoolean(DEFAULTHOMESWITCH, false);
-    }
-
-    public void updateViews() {
-        defaultHomeSwitch.setChecked(switchOnOff);
+        });
     }
 }

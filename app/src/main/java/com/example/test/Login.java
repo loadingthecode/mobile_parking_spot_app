@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Map;
 
@@ -74,6 +75,14 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    // checks if the user wants to stay logged in
+    public void checkLoginSaved() {
+        Boolean boxIsChecked = stayLoggedIn.isChecked();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("pref_check", boxIsChecked);
+        editor.apply();
+    }
+
     // if user clicks "CREATE ACCOUNT" button
     // sends to SignupPage activity
     public void clickToSignup(View view) {
@@ -89,14 +98,6 @@ public class Login extends AppCompatActivity {
     public void goToHomeScreen() {
         Intent intent = new Intent(Login.this, MainActivity.class);
         startActivity(intent);
-    }
-
-    // checks if the user wants to stay logged in
-    public void checkLoginSaved() {
-        Boolean boxIsChecked = stayLoggedIn.isChecked();
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("pref_check", boxIsChecked);
-        editor.apply();
     }
 
     private void signIn(String email, String pass) {

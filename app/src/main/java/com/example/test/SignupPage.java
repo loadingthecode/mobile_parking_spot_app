@@ -6,6 +6,7 @@ import java.util.regex.MatchResult;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import android.os.Vibrator;
 
@@ -89,6 +91,10 @@ public class SignupPage extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     sendEmailVerification();
+
+                                    // automatically subscribes new user to push notifications
+                                    //FirebaseMessaging.getInstance().subscribeToTopic("alerts");
+
                                     returnToLoginScreen();
                                 }
                         }

@@ -11,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".NotifService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:name=".SuntrustMap"
             android:parentActivityName=".ChooseGarage" />
@@ -39,6 +44,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </activity>
@@ -55,6 +61,7 @@
             android:name=".Settings"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity" />
+
     </application>
 
 </manifest>

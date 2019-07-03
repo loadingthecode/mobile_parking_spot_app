@@ -1,5 +1,7 @@
 package com.example.test;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -7,6 +9,9 @@ import android.graphics.drawable.ColorDrawable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
+
+import android.media.AudioAttributes;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -21,8 +26,11 @@ import java.net.InterfaceAddress;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String favLot = "Alfonds";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -32,6 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + getString(R.string.app_name) + "</font>"));
         //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+    }
+
+    public void goToFavorite(View view) {
+
+        Intent favoriteIntent = new Intent();
+
+        if (favLot.equalsIgnoreCase("Alfonds")) {
+            favoriteIntent = new Intent(this, AlfondsMap.class);
+        } else if (favLot.equalsIgnoreCase("SunTrust")){
+            favoriteIntent = new Intent(this, SuntrustMap.class);
+        }
+
+        startActivity(favoriteIntent);
     }
 
     public void goToDebug(View view) {
