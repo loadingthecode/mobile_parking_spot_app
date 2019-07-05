@@ -1,5 +1,7 @@
 package com.example.test;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import androidx.annotation.NonNull;
@@ -8,6 +10,7 @@ import androidx.appcompat.app.ActionBar;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -22,42 +25,39 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AlfondsMap extends AppCompatActivity {
 
-    DatabaseReference databaseSensors;
-    private static final String TAG = "AlfondsMap";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alfonds_lot_map);
 
-        /*databaseSensors = FirebaseDatabase.getInstance().getReference("parkingapp-c075d");
-
-        // Read from the database
-        databaseSensors.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
-                Toast.makeText(AlfondsMap.this, "Value is " + value, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Toast.makeText(AlfondsMap.this, "Error", Toast.LENGTH_SHORT).show();
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });*/
-
         ActionBar bar = getSupportActionBar();
 
-        bar.setTitle("Alfonds Parking Lot"); // set actionbar title
+        bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Alfonds Lot" + "</font>"));
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
+    }
 
-        bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Parking Lot Map" + "</font>"));
-        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+    public void setAlfondsAsFave(View view) {
+        MainActivity.favLot = "Alfonds";
 
+        // gets the sharedpreferences in the main activity at the index of favorite lot
+        SharedPreferences favoriteLot = getSharedPreferences(MainActivity.PREFS_MAIN, 0);
+        // gets the ability to modify saved data in the shared preferences
+        SharedPreferences.Editor editor = favoriteLot.edit();
+        // updates the favorite lot string with the current map name
+        editor.putString("favLot", MainActivity.favLot);
+        // saves favorite lot to the shared preferences
+        editor.commit();
+
+        // notifies user of successful operation
+        Toast.makeText(AlfondsMap.this, MainActivity.favLot + " has been set as your favorite lot.",
+                Toast.LENGTH_SHORT).show();
+
+        // returns user to home screen
+        goToHomeScreen();
+    }
+    // returns user to home screen
+    public void goToHomeScreen () {
+        Intent intent = new Intent(AlfondsMap.this, MainActivity.class);
+        startActivity(intent);
     }
 }

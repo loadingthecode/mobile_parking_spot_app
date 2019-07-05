@@ -27,6 +27,7 @@ import java.net.InterfaceAddress;
 public class MainActivity extends AppCompatActivity {
 
     public static String favLot = "Alfonds";
+    public static final String PREFS_MAIN = "PrefsMain";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,10 @@ public class MainActivity extends AppCompatActivity {
         bar.setTitle("Rollins Parking App"); // set actionbar title
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + getString(R.string.app_name) + "</font>"));
-        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
+
+        SharedPreferences favoriteLot = getSharedPreferences(PREFS_MAIN, 0);
+        favLot = favoriteLot.getString("favLot", favLot);
+
     }
 
     public void goToFavorite(View view) {
@@ -50,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             favoriteIntent = new Intent(this, AlfondsMap.class);
         } else if (favLot.equalsIgnoreCase("SunTrust")){
             favoriteIntent = new Intent(this, SuntrustMap.class);
+        } else if (favLot.equalsIgnoreCase("Sutton")) {
+            favoriteIntent = new Intent(this, SuttonMap.class);
         }
 
         startActivity(favoriteIntent);

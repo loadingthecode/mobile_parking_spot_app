@@ -54,10 +54,8 @@ public class ChooseGarage extends AppCompatActivity implements AdapterView.OnIte
 
         ActionBar bar = getSupportActionBar();
 
-        bar.setTitle("Choose a Parking Lot"); // set actionbar title
+        bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Choose a Parking Lot" + "</font>"));
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
-
-        bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + getString(R.string.app_name) + "</font>"));
 
         // initializing the drop-down menu to the xml
         // drop-down menu in the activity page

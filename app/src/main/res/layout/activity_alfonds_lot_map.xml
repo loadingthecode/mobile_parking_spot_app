@@ -7,20 +7,40 @@
     android:background="@color/colorBackground"
     tools:context=".AlfondsMap">
 
-    <ImageView
-        android:id="@+id/alfondsMap"
+    <Button
+        android:id="@+id/alfondsFave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="512dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:scaleY="1"
+        android:onClick="setAlfondsAsFave"
+        android:text="Set as Favorite"
+        android:theme="@style/SmallTextViewTheme"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/alfondsMap"
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="53dp"
+        android:scaleY=".9"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/garage" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

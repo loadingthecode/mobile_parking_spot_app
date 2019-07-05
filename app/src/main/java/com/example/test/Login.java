@@ -47,10 +47,7 @@ public class Login extends AppCompatActivity {
 
         ActionBar bar = getSupportActionBar();
 
-        bar.setTitle("Login"); // set actionbar title
-
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Login" + "</font>"));
-        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         stayLoggedIn = (CheckBox) findViewById(R.id.rememberMe);
