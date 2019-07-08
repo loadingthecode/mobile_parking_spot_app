@@ -27,6 +27,7 @@ import java.net.InterfaceAddress;
 public class MainActivity extends AppCompatActivity {
 
     public static String favLot = "Alfonds";
+
     public static final String PREFS_MAIN = "PrefsMain";
 
     @Override
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + getString(R.string.app_name) + "</font>"));
 
         SharedPreferences favoriteLot = getSharedPreferences(PREFS_MAIN, 0);
+
         favLot = favoriteLot.getString("favLot", favLot);
 
     }
@@ -66,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(debugIntent);
     }
 
-    public void goToLogin(View view) {
+    public void logout(View view) {
         Intent loginIntent = new Intent(this, Login.class);
         startActivity(loginIntent);
-        Login.prefs.edit().clear().apply();
+        Login.loginPrefs.edit().remove("login_pref").apply();
     }
 
     public void goToSettings(View view) {

@@ -18,6 +18,8 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class SuntrustMap extends AppCompatActivity {
 
+    private SharedPreferences favPrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,13 +36,13 @@ public class SuntrustMap extends AppCompatActivity {
         MainActivity.favLot = "SunTrust";
 
         // gets the sharedpreferences in the main activity at the index of favorite lot
-        SharedPreferences favoriteLot = getSharedPreferences(MainActivity.PREFS_MAIN, 0);
+        favPrefs= getSharedPreferences(MainActivity.PREFS_MAIN, 0);
         // gets the ability to modify saved data in the shared preferences
-        SharedPreferences.Editor editor = favoriteLot.edit();
+        SharedPreferences.Editor editor = favPrefs.edit();
         // updates the favorite lot string with the current map name
         editor.putString("favLot", MainActivity.favLot);
         // saves favorite lot to the shared preferences
-        editor.commit();
+        editor.apply();
 
         // notifies user of successful operation
         Toast.makeText(SuntrustMap.this, MainActivity.favLot + " has been set as your favorite lot.",

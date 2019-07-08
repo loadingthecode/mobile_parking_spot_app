@@ -29,7 +29,7 @@ public class ChooseGarage extends AppCompatActivity implements AdapterView.OnIte
     // and appearance
     public void initSpinner() {
 
-        // initializing the drop-down menu to the xml
+        // initializing the drop-down menu to the physical xml
         // drop-down menu in the activity page
         spinner = findViewById(R.id.lotChooser);
 
@@ -43,7 +43,7 @@ public class ChooseGarage extends AppCompatActivity implements AdapterView.OnIte
         // setting the drop-down menu's list of contents to adapter
         spinner.setAdapter(adapter);
 
-        // setting a callback to be invoked to the class when selected
+        // linking the current selection to the onItemSelectedListener
         spinner.setOnItemSelectedListener(this);
     }
 
@@ -61,6 +61,10 @@ public class ChooseGarage extends AppCompatActivity implements AdapterView.OnIte
         // drop-down menu in the activity page
         initSpinner();
     }
+
+    /*
+     * Garage choices below
+     */
 
     public void goToAlfonds() {
         Intent alfondsIntent = new Intent(this, AlfondsMap.class);
@@ -91,8 +95,8 @@ public class ChooseGarage extends AppCompatActivity implements AdapterView.OnIte
             goToSutton();
         }
 
+        // resets selection to default choice
         parent.setSelection(0);
-
     }
 
     @Override

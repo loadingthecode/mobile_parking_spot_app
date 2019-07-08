@@ -35,10 +35,10 @@ import static java.lang.System.in;
 public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText email, pass;
-
     private CheckBox stayLoggedIn;
-    protected static SharedPreferences prefs;
-    private static final String PREFS_NAME = "PrefsFile";
+
+    // creating a shared preference for 'stay logged in'
+    protected static SharedPreferences loginPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,34 +49,43 @@ public class Login extends AppCompatActivity {
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Login" + "</font>"));
 
-        prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        // setting the stay logged in pref to the main prefs in mainactivity
+        loginPrefs = getSharedPreferences(MainActivity.PREFS_MAIN, 0);
+
+        // linking the java checkbox to the physical checkbox
         stayLoggedIn = (CheckBox) findViewById(R.id.rememberMe);
 
-
+        // getting the current user
         mAuth = FirebaseAuth.getInstance();
-        email = (EditText)findViewById(R.id.signInEmail);
-        pass = (EditText)findViewById(R.id.signInPassword);
 
+        // setting the java account credential fields to their xml counterparts
+        email = (EditText) findViewById(R.id.signInEmail);
+        pass = (EditText) findViewById(R.id.signInPassword);
+
+        // recalling if the "stay logged in" checkbox was ticked or not
         getPreferencesData();
 
+        // if stay logged in was checked, skip login screen
+        // and go directly to home screen
         if (stayLoggedIn.isChecked()) {
             goToHomeScreen();
         }
     }
 
+    // method to recall if the stay logged in checkbox was ticked or not
     private void getPreferencesData() {
-        SharedPreferences sp = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        if(sp.contains("pref_check")) {
-            Boolean b = sp.getBoolean("pref_check", false);
-            stayLoggedIn.setChecked(b);
-        }
+        // storing the current login preference value in a boolean
+        Boolean b = loginPrefs.getBoolean("login_pref", false);
+
+        // setting the physical checkbox to either true or false
+        stayLoggedIn.setChecked(b);
     }
 
     // checks if the user wants to stay logged in
     public void checkLoginSaved() {
         Boolean boxIsChecked = stayLoggedIn.isChecked();
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("pref_check", boxIsChecked);
+        SharedPreferences.Editor editor = loginPrefs.edit();
+        editor.putBoolean("login_pref", boxIsChecked);
         editor.apply();
     }
 
@@ -115,7 +124,7 @@ public class Login extends AppCompatActivity {
                                 if (stayLoggedIn.isChecked()) {
                                     checkLoginSaved();
                                 } else {
-                                    prefs.edit().clear().apply();
+                                    loginPrefs.edit().remove("login_prefs").apply();
                                 }
 
                                 goToHomeScreen();

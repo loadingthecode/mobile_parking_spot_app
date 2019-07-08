@@ -18,12 +18,9 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class Settings extends AppCompatActivity {
 
-    private Button saveButton;
-
     protected static Switch toggleNotifsSwitch;
 
-    protected static SharedPreferences settingsPrefs;
-    protected static final String PREFS_NAME = "PrefSettings";
+    protected static SharedPreferences notifPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,27 +29,49 @@ public class Settings extends AppCompatActivity {
 
         ActionBar bar = getSupportActionBar();
 
-        bar.setTitle("Settings"); // set actionbar title
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Settings" + "</font>"));
 
+        // linking the java switch to the xml one
         toggleNotifsSwitch = findViewById(R.id.notificationsSwitch);
 
-        settingsPrefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        final SharedPreferences.Editor editor = settingsPrefs.edit();
-        toggleNotifsSwitch.setChecked(settingsPrefs.getBoolean(PREFS_NAME, true));
+        // a shared preference for turning notifications on or off
+        notifPref = getSharedPreferences(MainActivity.PREFS_MAIN, 0);
+
+        // checks if the user wanted notifications on or not
+        // and saves the preference
+        checkNotifSwitch();
+
+        // recalls what the user's preference was for notifications
+        getNotifSwitch();
+
+    }
+
+    // recalls what the user chose for receiving notifications
+    public void getNotifSwitch() {
+        // sets the switch to whatever value was stored in the notifs preference
+        toggleNotifsSwitch.setChecked(notifPref.getBoolean("notifs", false));
+    }
+
+    // determines if the user gets notifications or not
+    public void checkNotifSwitch() {
+
+        final SharedPreferences.Editor editor = notifPref.edit();
+
+        // checks to see if the user has ticked the notifications on
+        // and subscribes them to firebase alerts
         toggleNotifsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     FirebaseMessaging.getInstance().subscribeToTopic("alerts");
-                    editor.putBoolean(PREFS_NAME, true);
+                    editor.putBoolean("notifs", true);
                 } else {
                     FirebaseMessaging.getInstance().unsubscribeFromTopic("alerts");
-                    editor.putBoolean(PREFS_NAME, false);
+                    editor.putBoolean("notifs", false);
                 }
-                editor.commit();
+                editor.apply();
             }
         });
     }

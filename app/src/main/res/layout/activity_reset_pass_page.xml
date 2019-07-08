@@ -96,6 +96,7 @@
         android:layout_marginBottom="332dp"
         android:text='If you forgot your password, you can reset it below. Type in your Rollins email and press the "Send Reset Email" button.'
         android:theme="@style/EditTextTheme"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"

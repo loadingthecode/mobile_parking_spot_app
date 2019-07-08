@@ -19,7 +19,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:alpha=".25"
+        android:alpha=".10"
         android:scaleX="1"
         android:scaleY="1"
         app:layout_constraintBottom_toBottomOf="parent"
