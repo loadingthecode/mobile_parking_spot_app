@@ -89,69 +89,81 @@ public class Login extends AppCompatActivity {
         editor.apply();
     }
 
-    // if user clicks "CREATE ACCOUNT" button
-    // sends to SignupPage activity
+    // goes to account creation page
     public void clickToSignup(View view) {
         Intent intent = new Intent(Login.this, SignupPage.class);
         startActivity(intent);
     }
 
+    // goes to password reset page
     public void clickToGoToPasswordResetPage(View view) {
         Intent intent = new Intent(Login.this, ResetPassPage.class);
         startActivity(intent);
     }
 
+    // goes to homescreen
     public void goToHomeScreen() {
         Intent intent = new Intent(Login.this, MainActivity.class);
         startActivity(intent);
     }
 
+    // method that authorizes sign-in to app homescreen
     private void signIn(String email, String pass) {
-
         // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        // vibrator functionality for failed authorizations
                         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        // if Firebase successfully authorizes credentials
                         if (task.isSuccessful()) {
 
+                            // getting the current user
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            if (user.isEmailVerified()) {
-                                Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            // checks if the user verified their account via email
+                            if (user != null) {
+                                if (user.isEmailVerified()) {
+                                    Toast.makeText(Login.this, "Login Successful",
+                                            Toast.LENGTH_SHORT).show();
 
-                                if (stayLoggedIn.isChecked()) {
-                                    checkLoginSaved();
-                                } else {
-                                    loginPrefs.edit().remove("login_prefs").apply();
+                                    // checks if the user wanted to stay logged in
+                                    if (stayLoggedIn.isChecked()) {
+                                        checkLoginSaved();
+                                    } else {
+                                        // removes login preference if
+                                        // they don't want to stay logged in
+                                        loginPrefs.edit().remove("login_prefs").apply();
+                                    }
+
+                                    // goes to the homescreen
+                                    goToHomeScreen();
                                 }
 
-                                goToHomeScreen();
-                            }
+                                else {
+                                    // vibrates on failed log-in attempt
+                                    vibrateHelper(v);
 
-                            else {
-                                vibrateHelper(v);
-                                Toast.makeText(Login.this, "Please check your email and verify your account.",
-                                        Toast.LENGTH_SHORT).show();
-
-                                stayLoggedIn.setChecked(false);
-                                checkLoginSaved();
+                                    Toast.makeText(Login.this, "Please check " +
+                                                    "your email and verify your account.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                         } else {
+                            // vibrates on failed log-in attempt
                             vibrateHelper(v);
-                            Toast.makeText(Login.this, "Your credentials don't match any account information.",
+                            Toast.makeText(Login.this, "Your credentials don't " +
+                                            "match any account information.",
                                     Toast.LENGTH_SHORT).show();
-
-                            stayLoggedIn.setChecked(false);
-                            checkLoginSaved();
                         }
                     }
                 });
         // [END sign_in_with_email]
     }
 
+    // checks to make sure user email isn't empty or null before going into main sign-in method
     public void userLogin (View view) {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         String userEmail = email.getText().toString();
@@ -162,13 +174,12 @@ public class Login extends AppCompatActivity {
             vibrateHelper(v);
             Toast.makeText(Login.this, "Please enter your email and password.",
                     Toast.LENGTH_SHORT).show();
-            stayLoggedIn.setChecked(false);
-            checkLoginSaved();
         } else {
             signIn(userEmail, userPass);
         }
     }
 
+    // helper method for vibration functionality
     public void vibrateHelper(Vibrator vib) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vib.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));

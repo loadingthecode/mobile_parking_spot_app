@@ -184,6 +184,7 @@
         android:layout_marginBottom="512dp"
         android:onClick="goToDebug"
         android:text="Debug Sensors"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/otherWatermark5"
         app:layout_constraintStart_toStartOf="parent"

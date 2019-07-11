@@ -43,6 +43,14 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
     // and labeling the x-axis Time of Day
     BarDataSet barDataSet = new BarDataSet(barEntries, "Time of Day");
 
+    Day Monday;
+    Day Tuesday;
+    Day Wednesday;
+    Day Thursday;
+    Day Friday;
+
+    ArrayList<Day> dayList;
+
     // creating the bar entries for each time period
     BarEntry earlyMorning;
     BarEntry lateMorning;
@@ -62,7 +70,8 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
 
         // initializing an array adapter to a pre-defined array
         // of days of the week in the strings.xml file
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dayOfWeek, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource
+                (this, R.array.dayOfWeek, R.layout.spinner_item);
 
         // setting the physical appearance of the drop-down menu
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -101,13 +110,15 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
     }
 
     // setting each bar entries' default values
+    // max height determined by highest value (115)
+    // min height determined by lowest value (0)
     public void setBarEntries() {
 
         // sets the chart's default values
-        earlyMorning = new BarEntry(65f, 0);
-        lateMorning = new BarEntry(10f, 1);
-        earlyAfternoon = new BarEntry(26f, 2);
-        lateAfternoon = new BarEntry(3f, 3);
+        earlyMorning = new BarEntry(115f, 0);
+        lateMorning = new BarEntry(0f, 1);
+        earlyAfternoon = new BarEntry(0f, 2);
+        lateAfternoon = new BarEntry(0f, 3);
 
         // adds the various time periods to the x axis
         barEntries.add(earlyMorning);
@@ -143,41 +154,54 @@ public class ParkingTrends extends AppCompatActivity implements AdapterView.OnIt
     }
 
     // changes the graph to the parking trends of the selected day
-    public void changeChartVisuals(String t) {
-
-        // sets # of available parkings at each time of each day
-        if (t.equals("Monday")) {
-            earlyMorning.setVal(5f);
-            lateMorning.setVal(20f);
-            earlyAfternoon.setVal(30f);
-            lateAfternoon.setVal(12f);
-        } else if (t.equals("Tuesday")) {
-            earlyMorning.setVal(12f);
-            lateMorning.setVal(45f);
-            earlyAfternoon.setVal(25f);
-            lateAfternoon.setVal(19f);
-        } else if (t.equals("Wednesday")) {
-            earlyMorning.setVal(21f);
-            lateMorning.setVal(3f);
-            earlyAfternoon.setVal(5f);
-            lateAfternoon.setVal(29f);
-        } else if (t.equals("Thursday")) {
-            earlyMorning.setVal(5f);
-            lateMorning.setVal(15f);
-            earlyAfternoon.setVal(3f);
-            lateAfternoon.setVal(25f);
-        } else if (t.equals("Friday")) {
-            earlyMorning.setVal(25f);
-            lateMorning.setVal(5f);
-            earlyAfternoon.setVal(3f);
-            lateAfternoon.setVal(13f);
+    public void changeChartVisuals(String chosenDay) {
+        for (int i = 0; i < dayList.size(); i++) {
+            if (dayList.get(i).getDay().equalsIgnoreCase(chosenDay)) {
+                earlyMorning.setVal(dayList.get(i).getEarlyMorning());
+                lateMorning.setVal(dayList.get(i).getLateMorning());
+                earlyAfternoon.setVal(dayList.get(i).getEarlyAfternoon());
+                lateAfternoon.setVal(dayList.get(i).getLateAfternoon());
+            }
         }
+    }
+
+    // initializing default day names for each Day
+    public void initDays() {
+        Monday = new Day("Monday");
+        Tuesday = new Day("Tuesday");
+        Wednesday = new Day("Wednesday");
+        Thursday = new Day("Thursday");
+        Friday = new Day("Friday");
+    }
+
+    // method to set parking data for every time range for each day
+    public void setDayTimes() {
+        Monday.setAllTimes(5f, 20f, 30f, 12f);
+        Tuesday.setAllTimes(12f, 45f, 25f, 19f);
+        Wednesday.setAllTimes(21f, 3f, 5f, 29f);
+        Thursday.setAllTimes(5f, 15f, 3f, 25f);
+        Friday.setAllTimes(25f, 5f, 3f, 13f);
+    }
+
+    // adding Day objects to a Day list
+    public void addDays() {
+        dayList.add(Monday);
+        dayList.add(Tuesday);
+        dayList.add(Wednesday);
+        dayList.add(Thursday);
+        dayList.add(Friday);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parking_trends);
+
+        initDays();
+        dayList = new ArrayList<>();
+
+        setDayTimes();
+        addDays();
 
         // adding an actionbar to the top of the screen
         ActionBar bar = getSupportActionBar();

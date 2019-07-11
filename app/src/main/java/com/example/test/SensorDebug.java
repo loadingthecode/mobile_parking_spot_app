@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class SensorDebug extends AppCompatActivity {
 
     private static final String TAG = "SensorDebug";
+    private final int LIGHT_THRESHOLD = 100;
 
     // Firebase only takes longs and doubles, not ints
     private static long numOfSensors;
@@ -88,20 +89,23 @@ public class SensorDebug extends AppCompatActivity {
     public void takeSnapshot(DataSnapshot ds) {
 
         for (int i = 0; i < indicatorImages.length; i++) {
-            // sets the light value of each
+            // sets the light value of each local sensor object to
+            // its corresponding Firebase sensor light value
             indicatorList.get(i).setLight((long) ds.child("Sensor" + i).child("light").getValue());
 
-            // stores current iteration's light level
-            // in a long
+            // stores current iteration's light level in a long
             long sensorLightLevel = indicatorList.get(i).getLight();
 
             // for debugging:
             // visualizes real-time light data for each sensor via textview
             debugTextViews.get(i).setText(Long.toString(sensorLightLevel));
 
-            if (sensorLightLevel < 100) {
+            // default light threshold is 100 lumens
+            if (sensorLightLevel < LIGHT_THRESHOLD) {
+                // sets the indexed sensor object's image to a red circle
                 indicatorImages[i].setImageResource(R.drawable.parking_unavailable);
             } else {
+                // sets the indexed sensor object's image to a green circle
                 indicatorImages[i].setImageResource(R.drawable.parking_available);
             }
         }
@@ -114,13 +118,9 @@ public class SensorDebug extends AppCompatActivity {
         // Read from the database
         databaseSensors.addValueEventListener(new ValueEventListener() {
             @Override
+            // This method is called once with the initial value and again
+            // whenever data at this location is updated.
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-
-                // getting the number of sensors in database
-                // converting it to a string for debugging
-                sensorCount.setText(getNumOfSensors(dataSnapshot));
 
                 // method that constantly updates parking indicator
                 // based on firebase snapshot
