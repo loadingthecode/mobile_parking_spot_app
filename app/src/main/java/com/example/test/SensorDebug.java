@@ -121,7 +121,11 @@ public class SensorDebug extends AppCompatActivity {
             // This method is called once with the initial value and again
             // whenever data at this location is updated.
             public void onDataChange(DataSnapshot dataSnapshot) {
+                long numOfSensors = dataSnapshot.getChildrenCount();
 
+                String textNumberOfSensors = Long.toString(numOfSensors);
+
+                sensorCount.setText(textNumberOfSensors);
                 // method that constantly updates parking indicator
                 // based on firebase snapshot
                 takeSnapshot(dataSnapshot);

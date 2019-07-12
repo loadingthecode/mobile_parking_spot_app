@@ -24,13 +24,10 @@ public class BugReport extends AppCompatActivity {
 
         ActionBar bar = getSupportActionBar();
 
-        bar.setTitle("Send a Bug Report"); // set actionbar title
         bar.setDisplayHomeAsUpEnabled(true); // adds back arrow
 
         bar.setTitle(Html.fromHtml("<font color=\"#0071ba\">" + "Report a Bug" + "</font>"));
-        //bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFD700")));
 
-        //to = findViewById(R.id.to);
         subject = findViewById(R.id.userSubject);
         bugReport = findViewById(R.id.userMessage);
 
@@ -39,28 +36,37 @@ public class BugReport extends AppCompatActivity {
         bugReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendMail();
+                sendEmail();
             }
         });
     }
 
-    public void sendMail() {
-        //String recipientList = to.getText().toString();
-        //String[] recipients = recipientList.split(",");
+    // method used to email a bug report to our address
+    public void sendEmail() {
 
-        String[] recipients = new String[]{"parkingappreports@gmail.com"};
+        // creating an array of recipients for scalability
+        String[] mailTo = new String[]{"parkingappreports@gmail.com"};
 
-        //recipients[0] = "parkingappreports@gmail.com";
-
-        String mailSubject = subject.getText().toString();
+        // storing the subject and message in Strings
+        String subjectLine = subject.getText().toString();
         String message = bugReport.getText().toString();
 
+        // responsible for sending the email
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_EMAIL, recipients);
-        intent.putExtra(Intent.EXTRA_SUBJECT, mailSubject);
+
+        // putting our email address into the "to" line of their mail client
+        intent.putExtra(Intent.EXTRA_EMAIL, mailTo);
+
+        // putting the user's subject into their mail client's subject line
+        intent.putExtra(Intent.EXTRA_SUBJECT, subjectLine);
+
+        // putting the user's message into their mail client's message box
         intent.putExtra(Intent.EXTRA_TEXT, message);
 
+        // standard email address format
         intent.setType("message/rfc822");
+
+        // gives the user a choice of which mail client they'd like to use
         startActivity(Intent.createChooser(intent, "Choose an email client"));
     }
 
